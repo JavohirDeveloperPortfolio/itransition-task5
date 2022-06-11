@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js" integrity="sha512-tL4PIUsPy+Rks1go4kQG8M8/ItpRMvKnbBjQm4d2DQnFwgcBYRRN00QdyQnWSCwNMsoY/MfJY8nHp2CzlNdtZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js" integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <h1 id="username" th:text="${username}"></h1>
+    <hr />
+    <div class="row">
+        <div class="col-sm-3 col-md-3">
+            <div class="card p-4 bg-light">
+                <div class="card-body bg-light">
+                        <form id="contact-form" role="form" method="post" action="/messages/new-message">
+                            <div class="controls">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="tags">Username</label>
+                                            <input id="tags" type="text" name="usernames" class="form-control"
+                                                   placeholder="Username" required="required"
+                                                   data-error="Firstname is required.">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input id="title" type="text" name="title" class="form-control"
+                                                   placeholder="Title" required="required"
+                                            >
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="form_message">Message *</label>
+                                            <textarea id="form_message" name="content" class="form-control"
+                                                      placeholder="Write your message here." rows="4" required="required"
+                                                      data-error="Please, leave us a message."></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <button type="submit" class="btn btn-info btn-send  pt-2 btn-block
+                          " >SEND</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9">
+
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="home">
+                    <div class="list-group" id="messages">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Sender</td>
+                                    <td>Title</td>
+                                    <td>Time</td>
+                                    <td>View</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="message,count: ${messages}">
+                                    <td th:text="${count.count}" />
+                                    <td th:text="${message.senderName}" />
+                                    <td th:text="${message.title}" />
+                                    <td th:text="${message.sentTime}" />
+                                    <td><a class="btn btn-info" th:href="|message/${message.id}">View message</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/main-page.js"></script>
+</body>
+</html>
